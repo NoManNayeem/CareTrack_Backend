@@ -1,0 +1,36 @@
+# ── Dependencies ─────────────────────────────────────────
+node_modules/
+.pnpm-store/
+
+# ── Build output & caches ────────────────────────────────
+dist/
+*.tsbuildinfo
+.cache/
+coverage/
+
+# ── Environment & secrets (never commit) ─────────────────
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# ── Deployment ───────────────────────────────────────────
+.vercel/
+
+# ── Logs ─────────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ── Editors & OS ─────────────────────────────────────────
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
+
+# ── AI assistant local settings ──────────────────────────
+.claude/
