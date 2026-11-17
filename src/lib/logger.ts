@@ -1,10 +1,14 @@
 import { pino } from 'pino';
-import { env, isProduction } from '../config/env.js';
+import { env } from '../config/env.js';
+
+// Pretty, colourised logs only for local development. On Vercel (or any production host)
+// logs stay JSON, and pino-pretty (a dev dependency) is never loaded.
+const pretty = env.NODE_ENV === 'development' && !process.env.VERCEL;
 
 export const logger = pino({
   level: env.NODE_ENV === 'test' ? 'silent' : env.LOG_LEVEL,
   redact: ['req.headers.cookie', 'req.headers.authorization', 'res.headers["set-cookie"]'],
-  ...(isProduction || env.NODE_ENV === 'test'
-    ? {}
-    : { transport: { target: 'pino-pretty', options: { colorize: true, singleLine: true } } }),
+  ...(pretty
+    ? { transport: { target: 'pino-pretty', options: { colorize: true, singleLine: true } } }
+    : {}),
 });
