@@ -121,6 +121,8 @@ SEED_ADMIN_PASSWORD=CareTrack@2026
 | `COOKIE_NAME` / `COOKIE_SECURE` | | Session cookie name / force the `Secure` flag (on by default in production) |
 | `SEED_ADMIN_*` | | Admin account created by `npm run seed` |
 
+**On Vercel, only `MONGODB_URI` is required.** If they aren't set, `FRONTEND_URL` defaults to `https://caretrackfrontend.vercel.app` and `JWT_SECRET` is derived from `MONGODB_URI` with HMAC-SHA256, so it's exactly as secret as the database password and never stored in the repo. A dedicated `JWT_SECRET` is still recommended, so rotating the database password doesn't sign everyone out.
+
 The environment is validated with Zod when the API starts, and a missing or weak value stops it with a clear message. Real `.env` files are ignored by Git; only `.env.example` is committed.
 
 ### Run the checks
