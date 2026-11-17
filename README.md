@@ -6,18 +6,18 @@ Standalone REST API for **CareTrack (Doctor Tracker)**, built with Node.js 24, E
 |---|---|
 | **Backend repo** (this) | https://github.com/NoManNayeem/CareTrack_Backend |
 | **Frontend repo** | https://github.com/NoManNayeem/CareTrack_Frontend |
-| **Live app** | _added after deployment_ |
-| **Live API health** | _added after deployment_ (`/api/v1/health`) |
+| **Live app** | https://caretrackfrontend.vercel.app |
+| **Live API** | https://caretrackbackend.vercel.app/api/v1/health |
 | **Demo credentials** | `admin@caretrack.dev` / `CareTrack@2026` |
 
 ### Project walkthrough video
 
-<!-- Replace VIDEO_URL with the link to the walkthrough video (YouTube, Loom, Google Drive…). -->
-<a href="VIDEO_URL">
+<!-- Walkthrough video -->
+<a href="https://youtu.be/_p9CORnn2bA">
   <img src="docs/video-thumbnail.png" alt="Watch the CareTrack walkthrough video (about 5 minutes)" width="100%" />
 </a>
 
-▶ **[Watch the walkthrough (~5 min)](VIDEO_URL)**: a product tour of CareTrack, what it does and how the frontend and backend work together.
+▶ **[Watch the walkthrough (~5 min)](https://youtu.be/_p9CORnn2bA)**: a product tour of CareTrack, what it does and how the frontend and backend work together.
 
 ---
 
@@ -448,7 +448,7 @@ flowchart LR
     V -- main --> VPR[Vercel production<br/>+ /health smoke test]
 ```
 
-- Deploys run **only** when quality and tests pass. `vercel.json` sets `git.deploymentEnabled: false`, so Vercel never builds code that skipped CI.
+- **Hosting:** Vercel's Git integration builds and deploys every push to `main` (production) and every pull request (preview). The workflow's `deploy` job is an optional alternative that deploys only after quality and tests pass. It turns on when the Vercel secrets are added; if you use it, disable Git deployments in the Vercel project.
 - Images are published as `ghcr.io/nomannayeem/caretrack_backend:{sha,latest,semver}`.
 - **No secrets in the repository.**
   - Vercel credentials come from GitHub Actions secrets, are read only in the deploy job, and are masked in logs.

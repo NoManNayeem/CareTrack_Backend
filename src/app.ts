@@ -1,7 +1,8 @@
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import express from 'express';
-import helmet from 'helmet';
+import express, { type RequestHandler } from 'express';
+import * as helmetModule from 'helmet';
+import type { HelmetOptions } from 'helmet';
 import { pinoHttp } from 'pino-http';
 import { env } from './config/env.js';
 import { logger } from './lib/logger.js';
@@ -9,6 +10,11 @@ import { errorHandler } from './middleware/error-handler.js';
 import { notFound } from './middleware/not-found.js';
 import { originCheck } from './middleware/origin-check.js';
 import { apiRouter } from './routes.js';
+
+// helmet's CommonJS typings declare `export default` in ESM syntax, so CommonJS-mode compilers
+// (Vercel's builder) see only the module namespace. Both of its runtime builds expose `.default`.
+type Helmet = (options?: HelmetOptions) => RequestHandler;
+const helmet = ((helmetModule as { default?: unknown }).default ?? helmetModule) as Helmet;
 
 export function createApp() {
   const app = express();
